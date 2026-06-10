@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LMS — SiaMind Hackathon Presentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0f0f0f;
+  --muted: #555;
+  --faint: #999;
+  --rule: #e4e4e0;
+  --surface: #f7f7f5;
+  --white: #ffffff;
+
+  --purple-bg: #eeedfe; --purple-fg: #3c3489;
+  --blue-bg: #e6f1fb;   --blue-fg: #0c447c;
+  --teal-bg: #e1f5ee;   --teal-fg: #085041;
+  --amber-bg: #faeeda;  --amber-fg: #633806;
+  --red-bg: #fcebeb;    --red-fg: #a32d2d;
+  --gray-bg: #f1efe8;   --gray-fg: #444441;
+
+  --accent: #3c3489;
+  --font: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* ── Hero book shelf ── */
+.hero-shelf {
+  display: flex; align-items: flex-end; gap: 3px;
+  margin-bottom: 28px;
+}
+.shelf-book {
+  display: inline-block; border-radius: 2px 2px 0 0;
+  opacity: 0.7;
+  animation: shelf-float 3s ease-in-out infinite;
+}
+.shelf-book:nth-child(2) { animation-delay: 0.3s; }
+.shelf-book:nth-child(3) { animation-delay: 0.6s; }
+.shelf-book:nth-child(4) { animation-delay: 0.9s; }
+.shelf-book:nth-child(5) { animation-delay: 1.2s; }
+.shelf-book:nth-child(6) { animation-delay: 0.15s; }
+.shelf-book:nth-child(7) { animation-delay: 0.45s; }
+.shelf-book:nth-child(8) { animation-delay: 0.75s; }
+.shelf-book:nth-child(9) { animation-delay: 1.05s; }
+.shelf-book:nth-child(10){ animation-delay: 0.35s; }
+.shelf-book:nth-child(11){ animation-delay: 0.65s; }
+@keyframes shelf-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* ── CTA buttons ── */
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 10px; text-decoration: none;
+  font-size: 14px; font-weight: 600; transition: all 0.2s;
+  border: 1.5px solid transparent;
+}
+.cta-primary {
+  background: #a89cf7; color: #1a1340;
+  border-color: #a89cf7;
+}
+.cta-primary:hover { background: #bfb3fa; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,156,247,0.35); }
+.cta-secondary {
+  background: transparent; color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.25);
+}
+.cta-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); border-color: rgba(255,255,255,0.5); }
+.cta-badge {
+  font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px;
+  background: rgba(255,255,255,0.25); color: inherit;
+}
+.cta-badge-dark { background: rgba(0,0,0,0.2); }
+
+/* ── Repo pills ── */
+.hero-repo-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.repo-label { font-size: 11px; color: rgba(255,255,255,0.35); font-weight: 500; white-space: nowrap; }
+.repo-pill {
+  font-size: 11px; padding: 3px 10px; border-radius: 20px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.12); white-space: nowrap;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; gap: 0;
+  padding: 0 32px;
+  height: 52px;
+  overflow-x: auto;
+}
+nav a {
+  text-decoration: none; color: var(--muted); font-size: 12px; font-weight: 500;
+  padding: 0 14px; height: 52px; display: flex; align-items: center;
+  white-space: nowrap; border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+nav a:hover { color: var(--ink); }
+nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+.nav-brand {
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  padding-right: 24px; margin-right: 8px;
+  border-right: 1px solid var(--rule);
+  white-space: nowrap; letter-spacing: -0.02em;
+}
+
+/* ── Sections ── */
+section { padding: 96px 0 80px; border-bottom: 1px solid var(--rule); }
+section:last-of-type { border-bottom: none; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+/* ── Hero ── */
+#hero {
+  min-height: 100vh; display: flex; align-items: center;
+  background: var(--ink); color: white; padding: 0;
+  position: relative; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: linear-gradient(var(--rule) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.hero-inner { position: relative; z-index: 1; padding: 120px 32px 80px; max-width: 900px; margin: 0 auto; width: 100%; }
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 20px; font-weight: 500;
+}
+.hero-title {
+  font-size: clamp(36px, 6vw, 64px); font-weight: 700;
+  line-height: 1.05; letter-spacing: -0.03em;
+  margin-bottom: 10px;
+}
+.hero-title span { color: #a89cf7; }
+.hero-subtitle {
+  font-size: clamp(16px, 2.5vw, 22px); color: rgba(255,255,255,0.55);
+  font-weight: 300; margin-bottom: 40px; letter-spacing: -0.01em;
+}
+.hero-meta {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 500;
+}
+.hero-meta span strong { color: rgba(255,255,255,0.8); }
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.3); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; animation: bounce 2s infinite;
+}
+.hero-scroll svg { width: 16px; height: 16px; }
+@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+/* ── Section headers ── */
+.sec-label {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600; margin-bottom: 8px;
+}
+.sec-title {
+  font-size: clamp(22px, 4vw, 34px); font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 12px;
+}
+.sec-desc { font-size: 15px; color: var(--muted); max-width: 600px; line-height: 1.65; margin-bottom: 40px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--white); border: 1px solid var(--rule);
+  border-radius: 12px; padding: 24px 28px;
+}
+.card-grid { display: grid; gap: 16px; }
+.card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+/* ── Pills ── */
+.pill {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+}
+.pill-purple { background: var(--purple-bg); color: var(--purple-fg); }
+.pill-blue   { background: var(--blue-bg);   color: var(--blue-fg); }
+.pill-teal   { background: var(--teal-bg);   color: var(--teal-fg); }
+.pill-amber  { background: var(--amber-bg);  color: var(--amber-fg); }
+.pill-red    { background: var(--red-bg);    color: var(--red-fg); }
+.pill-gray   { background: var(--gray-bg);   color: var(--gray-fg); }
+.pill-must   { background: #fcebeb; color: #a32d2d; }
+.pill-should { background: #faeeda; color: #633806; }
+.pill-could  { background: #eaf3de; color: #27500a; }
+
+/* ── Stat bar ── */
+.stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+.stat {
+  flex: 1; min-width: 120px; padding: 20px 24px;
+  background: var(--surface); border-radius: 12px; border: 1px solid var(--rule);
+}
+.stat-num { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+.stat-lbl { font-size: 12px; color: var(--faint); font-weight: 500; }
+
+/* ── Timeline ── */
+.timeline-bar {
+  display: flex; border-radius: 8px; overflow: hidden; height: 14px; margin-bottom: 10px;
+}
+.t-seg { display: flex; align-items: center; justify-content: center; font-size: 8px; }
+.phase-rows { display: flex; flex-direction: column; gap: 6px; }
+.phase-row {
+  display: grid; grid-template-columns: 80px 130px 60px 1fr;
+  gap: 12px; align-items: start;
+  padding: 12px 16px; border-radius: 8px;
+  border: 1px solid var(--rule); background: var(--white);
+  font-size: 13px;
+}
+.phase-row .p-name { font-weight: 600; }
+.phase-row .p-time { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.phase-row .p-dur  { font-size: 12px; color: var(--faint); }
+.phase-row .p-desc { color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+/* ── Engineer cards ── */
+.eng-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.eng-card {
+  padding: 18px 20px; border-radius: 10px; border: 1px solid var(--rule);
+  background: var(--white);
+}
+.eng-num { font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+.eng-role { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.eng-deliverable { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ── Requirements table ── */
+.req-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.req-table th {
+  text-align: left; font-size: 11px; font-weight: 600; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 12px;
+  background: var(--surface); border-bottom: 1px solid var(--rule);
+}
+.req-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.req-table tr:last-child td { border-bottom: none; }
+.req-id { font-family: var(--mono); font-size: 11px; color: var(--faint); white-space: nowrap; }
+.req-table tbody tr:hover td { background: var(--surface); }
+
+/* ── ERD image placeholder ── */
+.erd-container {
+  border: 1px solid var(--rule); border-radius: 12px; overflow: hidden;
+  background: var(--surface);
+}
+.erd-header {
+  padding: 12px 16px; border-bottom: 1px solid var(--rule); background: var(--white);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+}
+.erd-dots { display: flex; gap: 5px; }
+.erd-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ── API endpoints ── */
+.endpoint-list { display: flex; flex-direction: column; gap: 8px; }
+.endpoint {
+  display: grid; grid-template-columns: 52px 1fr auto;
+  gap: 12px; align-items: center;
+  padding: 11px 16px; border-radius: 8px; border: 1px solid var(--rule);
+  background: var(--white); font-size: 13px;
+}
+.ep-method { font-family: var(--mono); font-size: 11px; font-weight: 700; text-align: center; padding: 3px 6px; border-radius: 5px; }
+.ep-path { font-family: var(--mono); font-size: 12px; color: var(--ink); }
+.ep-desc { font-size: 12px; color: var(--muted); }
+.ep-auth { font-size: 10px; }
+
+/* ── Tools table ── */
+.tools-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tools-table th {
+  text-align: left; font-size: 11px; font-weight: 600; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 14px;
+  background: var(--surface); border-bottom: 1px solid var(--rule);
+}
+.tools-table td { padding: 11px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tools-table tr:last-child td { border-bottom: none; }
+.tools-table tbody tr:hover td { background: var(--surface); }
+.tool-chosen { font-weight: 600; color: var(--teal-fg); }
+.tool-artifact { font-weight: 600; color: var(--ink); }
+.tool-also { font-size: 11px; color: var(--faint); }
+
+/* ── Sprint phase blocks ── */
+.sprint-phases { display: flex; flex-direction: column; gap: 10px; }
+.sp-block { border-radius: 10px; border: 1px solid var(--rule); overflow: hidden; }
+.sp-header {
+  padding: 12px 16px; display: flex; align-items: center; gap: 14px;
+  cursor: pointer; user-select: none;
+}
+.sp-header:hover { filter: brightness(0.97); }
+.sp-phase-name { font-weight: 700; font-size: 13px; flex: 1; }
+.sp-time { font-family: var(--mono); font-size: 11px; opacity: 0.7; }
+.sp-body { padding: 0 16px 16px; }
+.sp-tasks { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
+.sp-task {
+  display: grid; grid-template-columns: 52px 1fr 44px 80px;
+  gap: 10px; align-items: start; padding: 8px 10px;
+  border-radius: 6px; background: var(--surface); font-size: 12px;
+}
+.sp-task-id { font-family: var(--mono); font-size: 10px; color: var(--faint); padding-top: 1px; }
+.sp-task-name { font-weight: 500; color: var(--ink); line-height: 1.4; }
+.sp-task-sub { font-size: 11px; color: var(--muted); line-height: 1.4; margin-top: 2px; }
+.sp-task-est { font-size: 11px; color: var(--faint); text-align: center; padding-top: 1px; }
+.sp-task-owner { text-align: right; }
+
+/* ── Gate checklist ── */
+.gate-list { display: flex; flex-direction: column; gap: 6px; }
+.gate-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border-radius: 8px; border: 1px solid var(--amber-fg);
+  background: var(--amber-bg); font-size: 13px;
+}
+.gate-item .check { font-size: 16px; }
+.gate-id { font-family: var(--mono); font-size: 10px; color: var(--amber-fg); min-width: 36px; }
+
+/* ── Risk table ── */
+.risk-row {
+  display: grid; grid-template-columns: 40px 50px 1fr 1fr;
+  gap: 12px; align-items: start; padding: 10px 14px;
+  border-radius: 8px; border: 1px solid var(--rule); background: var(--white);
+  font-size: 13px; margin-bottom: 6px;
+}
+.risk-id { font-family: var(--mono); font-size: 10px; color: var(--faint); padding-top: 2px; }
+.risk-title { font-weight: 600; color: var(--ink); line-height: 1.4; }
+.risk-mit { color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+/* ── Docs produced ── */
+.docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.doc-card {
+  padding: 18px 20px; border-radius: 10px; border: 1px solid var(--rule);
+  background: var(--white); display: flex; flex-direction: column; gap: 8px;
+}
+.doc-icon { font-size: 22px; }
+.doc-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.doc-status { font-size: 11px; }
+.doc-format { font-size: 11px; color: var(--faint); }
+
+/* ── Divider ── */
+.rule { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
+
+/* ── Misc ── */
+.mono { font-family: var(--mono); }
+.text-muted { color: var(--muted); }
+.text-faint { color: var(--faint); }
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mt-24 { margin-top: 24px; }
+
+/* ── Print / fullscreen ── */
+@media print {
+  nav { display: none; }
+  section { page-break-inside: avoid; }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 16px; }
+  .phase-row { grid-template-columns: 1fr 1fr; }
+  .sp-task { grid-template-columns: 1fr; }
+  .endpoint { grid-template-columns: 46px 1fr; }
+  .endpoint .ep-auth { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">LMS · SiaMind</span>
+  <a href="#hero" class="active">Overview</a>
+  <a href="#value">Value Prop</a>
+  <a href="#team">Team</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#requirements">Requirements</a>
+  <a href="#erd">ERD</a>
+  <a href="#api">API</a>
+  <a href="#sprint">Sprint Plan</a>
+  <a href="#tools">Tools Used</a>
+  <a href="#deliverables">Deliverables</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+
+  <!-- Floating books background illustration -->
+  <div class="hero-books" aria-hidden="true">
+    <div class="book b1"></div><div class="book b2"></div><div class="book b3"></div>
+    <div class="book b4"></div><div class="book b5"></div><div class="book b6"></div>
+    <div class="book b7"></div><div class="book b8"></div>
+  </div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow">SiaMind · ITI Hackathon · June 2026</p>
+
+    <!-- Shelf ornament -->
+    <div class="hero-shelf" aria-hidden="true">
+      <span class="shelf-book" style="background:#a89cf7;height:52px;width:14px"></span>
+      <span class="shelf-book" style="background:#7ecbb5;height:44px;width:10px"></span>
+      <span class="shelf-book" style="background:#f4a261;height:58px;width:16px"></span>
+      <span class="shelf-book" style="background:#e76f51;height:38px;width:11px"></span>
+      <span class="shelf-book" style="background:#a89cf7;height:62px;width:13px"></span>
+      <span class="shelf-book" style="background:#7ecbb5;height:46px;width:15px"></span>
+      <span class="shelf-book" style="background:#f4a261;height:40px;width:12px"></span>
+      <span class="shelf-book" style="background:#e76f51;height:54px;width:14px"></span>
+      <span class="shelf-book" style="background:#a89cf7;height:48px;width:16px"></span>
+      <span class="shelf-book" style="background:#7ecbb5;height:60px;width:11px"></span>
+      <span class="shelf-book" style="background:#f4a261;height:42px;width:13px"></span>
+    </div>
+
+    <h1 class="hero-title">Library<br/><span>Management</span><br/>System</h1>
+    <p class="hero-subtitle">Design-first. Fully documented. Built in 24 hours.</p>
+
+    <!-- CTA buttons -->
+    <div class="hero-ctas">
+      <a href="https://replit.com/join/uascmzdzvpzamuf-mariemmorgan" target="_blank" class="cta-btn cta-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 4.5A2 2 0 0 1 7.5 2h9A2 2 0 0 1 18.5 4v16l-6.5-3.5L5.5 20V4.5z"/></svg>
+        View Working MVP
+        <span class="cta-badge">Replit</span>
+      </a>
+      <a href="https://github.com/KarimHesham23/iti-hackthon" target="_blank" class="cta-btn cta-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/></svg>
+        GitHub Repository
+        <span class="cta-badge cta-badge-dark">Source code</span>
+      </a>
+    </div>
+
+    <div class="hero-meta">
+      <span><strong>6</strong> Engineers</span>
+      <span><strong>24</strong> Hours</span>
+      <span><strong>34</strong> Requirements</span>
+      <span><strong>3</strong> User Roles</span>
+      <span><strong>30+</strong> API Endpoints</span>
+    </div>
+
+    <!-- Repo contents pill row -->
+    <div class="hero-repo-row">
+      <span class="repo-label">Repo includes:</span>
+      <span class="repo-pill">📄 Vision Doc</span>
+      <span class="repo-pill">📋 SRS</span>
+      <span class="repo-pill">🗄️ ERD</span>
+      <span class="repo-pill">🔌 API Docs</span>
+      <span class="repo-pill">🔷 Use Case</span>
+      <span class="repo-pill">🎨 Wireframes</span>
+      <span class="repo-pill">📊 Sprint Plan</span>
+      <span class="repo-pill">🚀 Final MVP</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 3v10M4 9l4 4 4-4"/>
+    </svg>
+    scroll
+  </div>
+</section>
+
+<!-- VALUE PROP -->
+<section id="value">
+  <div class="container">
+    <p class="sec-label">Business Value</p>
+    <h2 class="sec-title">The problem worth solving</h2>
+    <p class="sec-desc">Libraries across MENA run on paper ledgers or expensive legacy software. Lost books, uncollected fines, zero member visibility.</p>
+
+    <div class="card-grid card-grid-3 mb-24">
+      <div class="card">
+        <div style="font-size:22px;margin-bottom:10px">📚</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px">Core Problem</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6">Manual processes, paper ledgers, expensive legacy systems. Librarians buried in admin instead of serving patrons.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:22px;margin-bottom:10px">✨</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px">Unique Value Prop</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6">Modern cloud-ready platform with auto fine calculation, real-time availability, RBAC, and Arabic-first bilingual support.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:22px;margin-bottom:10px">💰</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px">Monetisation</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6">SaaS tiers (Starter → Pro → Enterprise). White-label for Ministry of Education and university networks.</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">4,000+</div><div class="stat-lbl">Public libraries in Egypt alone</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-lbl">Dominant Arabic-first digital player</div></div>
+      <div class="stat"><div class="stat-num">30%</div><div class="stat-lbl">Fine recovery improvement potential</div></div>
+      <div class="stat"><div class="stat-num">MENA</div><div class="stat-lbl">Underserved Arabic-first market</div></div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--accent)">
+      <p style="font-size:15px;font-style:italic;color:var(--muted);line-height:1.7">
+        "We are the Notion for libraries — simple enough for a school, powerful enough for a university system."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" style="background:var(--surface)">
+  <div class="container">
+    <p class="sec-label">The Squad</p>
+    <h2 class="sec-title">6 engineers, 6 parallel tracks</h2>
+    <p class="sec-desc">Each engineer owns a dedicated lane — from design through to implementation.</p>
+    <div class="eng-grid">
+      <div class="eng-card">
+        <div class="eng-num pill pill-purple">Eng 1</div>
+        <div class="eng-role">Business & Vision</div>
+        <div class="eng-deliverable">Vision Doc · Business case · Pitch slides · Auth system + RBAC</div>
+      </div>
+      <div class="eng-card">
+        <div class="eng-num pill pill-blue">Eng 2</div>
+        <div class="eng-role">Requirements & Stories</div>
+        <div class="eng-deliverable">Requirements Spec · User Stories + AC · Books module full stack</div>
+      </div>
+      <div class="eng-card">
+        <div class="eng-num pill pill-teal">Eng 3</div>
+        <div class="eng-role">Diagrams & Use Cases</div>
+        <div class="eng-deliverable">Use Case Diagram · System Context · Borrow/Return/Fine engine</div>
+      </div>
+      <div class="eng-card">
+        <div class="eng-num pill pill-amber">Eng 4</div>
+        <div class="eng-role">Data Architecture</div>
+        <div class="eng-deliverable">ERD · Data Dictionary · API Contract · Members module full stack</div>
+      </div>
+      <div class="eng-card">
+        <div class="eng-num pill pill-red">Eng 5</div>
+        <div class="eng-role">UX & Wireframes</div>
+        <div class="eng-deliverable">8 screen wireframes · RTL notes · UI shell · Admin dashboard</div>
+      </div>
+      <div class="eng-card">
+        <div class="eng-num pill pill-gray">Eng 6</div>
+        <div class="eng-role">Tech Lead & DevOps</div>
+        <div class="eng-deliverable">Architecture diagram · Dev env · Sprint plan · E2E QA · Submission</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <p class="sec-label">24-Hour Execution</p>
+    <h2 class="sec-title">Four strict sequential phases</h2>
+    <p class="sec-desc">Design Gate at H+8 is non-negotiable — zero implementation before all blueprints are signed off.</p>
+
+    <!-- Visual timeline bar -->
+    <div class="timeline-bar mb-16" style="height:18px;border-radius:8px">
+      <div class="t-seg" style="flex:3;background:#3c3489" title="Phase 0"></div>
+      <div class="t-seg" style="flex:5;background:#0c447c" title="Phase 1"></div>
+      <div class="t-seg" style="flex:1;background:#633806" title="Gate"></div>
+      <div class="t-seg" style="flex:13;background:#085041" title="Phase 2"></div>
+      <div class="t-seg" style="flex:2;background:#a32d2d" title="Phase 3"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--faint);margin-bottom:24px">
+      <span>H+0</span><span>H+6</span><span>H+12</span><span>H+18</span><span>H+24</span>
+    </div>
+
+    <div class="phase-rows">
+      <div class="phase-row" style="background:var(--purple-bg);border-color:var(--purple-bg)">
+        <span class="p-name" style="color:var(--purple-fg)">Phase 0</span>
+        <span class="p-time">H+0 → H+3</span>
+        <span class="p-dur">3 hrs</span>
+        <span class="p-desc">Kickoff & alignment — read spec, agree on stack, set up tools. All 6 engineers. No code.</span>
+      </div>
+      <div class="phase-row" style="background:var(--blue-bg);border-color:var(--blue-bg)">
+        <span class="p-name" style="color:var(--blue-fg)">Phase 1</span>
+        <span class="p-time">H+3 → H+8</span>
+        <span class="p-dur">5 hrs</span>
+        <span class="p-desc">Blueprint — 6 engineers in parallel on 6 distinct design deliverables. Design-only, zero implementation.</span>
+      </div>
+      <div class="phase-row" style="background:var(--amber-bg);border-color:var(--amber-fg)">
+        <span class="p-name" style="color:var(--amber-fg)">⛔ Gate</span>
+        <span class="p-time">H+8</span>
+        <span class="p-dur">1 hr</span>
+        <span class="p-desc">Design review — all 6 deliverables reviewed and signed off. No build until every gate item is green.</span>
+      </div>
+      <div class="phase-row" style="background:var(--teal-bg);border-color:var(--teal-bg)">
+        <span class="p-name" style="color:var(--teal-fg)">Phase 2</span>
+        <span class="p-time">H+9 → H+22</span>
+        <span class="p-dur">13 hrs</span>
+        <span class="p-desc">Rapid implementation — parallel vertical slices, sync checkpoints at H+13 and H+18. Each engineer owns one module.</span>
+      </div>
+      <div class="phase-row" style="background:var(--red-bg);border-color:var(--red-bg)">
+        <span class="p-name" style="color:var(--red-fg)">Phase 3</span>
+        <span class="p-time">H+22 → H+24</span>
+        <span class="p-dur">2 hrs</span>
+        <span class="p-desc">Feature freeze, seed demo data, smoke test, record backup video, rehearse pitch x2, submit.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section id="requirements" style="background:var(--surface)">
+  <div class="container">
+    <p class="sec-label">Requirements Specification</p>
+    <h2 class="sec-title">What the system must do</h2>
+    <p class="sec-desc">Full functional + non-functional requirements across all three roles. 34 functional requirements, 12 non-functional.</p>
+
+    <div class="stat-row mb-24">
+      <div class="stat"><div class="stat-num">34</div><div class="stat-lbl">Functional requirements</div></div>
+      <div class="stat"><div class="stat-num">12</div><div class="stat-lbl">Non-functional</div></div>
+      <div class="stat"><div class="stat-num">8</div><div class="stat-lbl">Constraints</div></div>
+      <div class="stat"><div class="stat-num">10</div><div class="stat-lbl">Assumptions</div></div>
+    </div>
+
+    <!-- Guest -->
+    <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">
+      <span class="pill pill-teal">Guest</span> &nbsp;Unauthenticated visitor
+    </h3>
+    <table class="req-table mb-24">
+      <thead><tr><th>ID</th><th>Requirement</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="req-id">FR-G01</td><td>Browse the full book catalog without creating an account.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-G02</td><td>Search books by title, author, or category.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-G03</td><td>View book detail: title, author, category, total & available copies.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-G04</td><td>Filter catalog by availability: all / available / borrowed.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-G05</td><td>See a login prompt when attempting any authenticated action.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-G06</td><td>View catalog in Arabic (RTL) or English via a language toggle.</td><td><span class="pill pill-should">Should</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- Librarian -->
+    <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">
+      <span class="pill pill-blue">Librarian</span> &nbsp;Authenticated staff
+    </h3>
+    <table class="req-table mb-24">
+      <thead><tr><th>ID</th><th>Requirement</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="req-id">FR-L01</td><td>Add a new book with title, author, category, and number of copies.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L02</td><td>Edit any field of an existing book record.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L03</td><td>Delete a book — only if no copies are currently borrowed.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L10</td><td>Record a borrow transaction with expected return date.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L11</td><td>Prevent borrowing when zero copies are available.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L13</td><td>View all overdue borrowings with days overdue highlighted.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L14</td><td>Record a book return against a specific borrow transaction.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L15</td><td>Auto-calculate late fine on return using active fine rule.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-L16</td><td>Show fine preview before confirming the return.</td><td><span class="pill pill-should">Should</span></td></tr>
+        <tr><td class="req-id">FR-L17</td><td>Mark a fine as paid and record the payment date.</td><td><span class="pill pill-must">Must</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- Admin -->
+    <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">
+      <span class="pill pill-purple">Admin</span> &nbsp;Platform administrator
+    </h3>
+    <table class="req-table mb-24">
+      <thead><tr><th>ID</th><th>Requirement</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td class="req-id">FR-A01</td><td>Create, edit, and deactivate librarian accounts.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-A04</td><td>Configure the fine rule: amount per overdue day + currency.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-A05</td><td>Fine rule changes apply to new returns only — not retroactively.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-A06</td><td>Create, rename, and delete book categories.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-A08</td><td>Platform dashboard: total books, active borrows, overdue count, unpaid fines.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-A09</td><td>Most-borrowed books ranked by borrow count.</td><td><span class="pill pill-must">Must</span></td></tr>
+        <tr><td class="req-id">FR-A11</td><td>Export any report as CSV.</td><td><span class="pill pill-could">Could</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- NFR highlights -->
+    <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">
+      <span class="pill pill-gray">System</span> &nbsp;Non-functional highlights
+    </h3>
+    <div class="card-grid card-grid-2">
+      <div class="card"><strong>Performance</strong><br/><span class="text-muted" style="font-size:13px">Page load &lt;2s · Search &lt;500ms for 50k books</span></div>
+      <div class="card"><strong>Security</strong><br/><span class="text-muted" style="font-size:13px">bcrypt passwords · Server-side RBAC on every route</span></div>
+      <div class="card"><strong>Internationalisation</strong><br/><span class="text-muted" style="font-size:13px">Arabic RTL + English LTR · Persistent language toggle</span></div>
+      <div class="card"><strong>Reliability</strong><br/><span class="text-muted" style="font-size:13px">Atomic transactions · 99.5% uptime target</span></div>
+      <div class="card"><strong>Responsiveness</strong><br/><span class="text-muted" style="font-size:13px">Fully functional at 375px · No native app needed</span></div>
+      <div class="card"><strong>Usability</strong><br/><span class="text-muted" style="font-size:13px">Return + fine in under 4 clicks · Human-readable errors</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ERD -->
+<section id="erd">
+  <div class="container">
+    <p class="sec-label">Data Architecture</p>
+    <h2 class="sec-title">Entity Relationship Diagram</h2>
+    <p class="sec-desc">8 tables covering the full domain. All relationships, PKs, and FKs defined.</p>
+
+    <div class="erd-container mb-24">
+      <div class="erd-header">
+        <div class="erd-dots">
+          <div class="erd-dot" style="background:#ff5f57"></div>
+          <div class="erd-dot" style="background:#febc2e"></div>
+          <div class="erd-dot" style="background:#28c840"></div>
+        </div>
+        <span>LMS Entity Relationship Diagram — 8 tables</span>
+        <span style="font-size:11px;color:var(--faint)">Mermaid.js / dbdiagram.io</span>
+      </div>
+      <div style="padding:24px;overflow-x:auto">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;min-width:600px">
+          <!-- Each table -->
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">USERS</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              name string<br/>email string<br/>password_hash string<br/>
+              <span style="color:var(--amber-fg)">role</span> enum<br/>created_at timestamp
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">BOOKS</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              title string<br/>author string<br/>
+              <span style="color:var(--blue-fg)">category_id</span> uuid FK<br/>
+              total_copies int<br/>available_copies int<br/>created_at timestamp
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">MEMBERS</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              name string<br/>phone string<br/>email string<br/>membership_number string<br/>membership_date date<br/>created_at timestamp
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">CATEGORIES</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              name_en string<br/>name_ar string
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">BORROW_TRANSACTIONS</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              <span style="color:var(--blue-fg)">member_id</span> FK<br/>
+              <span style="color:var(--blue-fg)">book_id</span> FK<br/>
+              <span style="color:var(--blue-fg)">librarian_id</span> FK<br/>
+              borrow_date date<br/>expected_return_date date<br/>
+              <span style="color:var(--amber-fg)">status</span> enum<br/>
+              created_at timestamp
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">RETURNS</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              <span style="color:var(--blue-fg)">borrow_id</span> FK<br/>
+              actual_return_date date<br/>days_overdue int<br/>created_at timestamp
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">FINES</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              <span style="color:var(--blue-fg)">return_id</span> FK<br/>
+              <span style="color:var(--blue-fg)">member_id</span> FK<br/>
+              amount decimal<br/>
+              <span style="color:var(--amber-fg)">status</span> enum<br/>created_at timestamp
+            </div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="font-size:12px;font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:6px;margin-bottom:8px">FINE_RULES</div>
+            <div style="font-size:11px;font-family:var(--mono);line-height:1.8;color:var(--muted)">
+              <span style="color:var(--teal-fg)">id</span> uuid PK<br/>
+              amount_per_day decimal<br/>currency string<br/>updated_at timestamp
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Relationships -->
+    <h3 style="font-size:13px;font-weight:600;margin-bottom:12px">Key relationships</h3>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="card" style="padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px">
+        <code style="font-family:var(--mono);font-size:11px;background:var(--surface);padding:3px 8px;border-radius:5px">MEMBERS ||--o{ BORROW_TRANSACTIONS</code>
+        <span class="text-muted">One member initiates zero or many borrows</span>
+      </div>
+      <div class="card" style="padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px">
+        <code style="font-family:var(--mono);font-size:11px;background:var(--surface);padding:3px 8px;border-radius:5px">BOOKS ||--o{ BORROW_TRANSACTIONS</code>
+        <span class="text-muted">One book is borrowed via zero or many transactions</span>
+      </div>
+      <div class="card" style="padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px">
+        <code style="font-family:var(--mono);font-size:11px;background:var(--surface);padding:3px 8px;border-radius:5px">BORROW_TRANSACTIONS ||--o| RETURNS</code>
+        <span class="text-muted">Each borrow is resolved by zero or one return</span>
+      </div>
+      <div class="card" style="padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px">
+        <code style="font-family:var(--mono);font-size:11px;background:var(--surface);padding:3px 8px;border-radius:5px">RETURNS ||--o| FINES</code>
+        <span class="text-muted">A return may generate zero or one fine</span>
+      </div>
+      <div class="card" style="padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:13px">
+        <code style="font-family:var(--mono);font-size:11px;background:var(--surface);padding:3px 8px;border-radius:5px">FINE_RULES ||--o{ FINES</code>
+        <span class="text-muted">Active fine rule governs fine calculation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API -->
+<section id="api" style="background:var(--surface)">
+  <div class="container">
+    <p class="sec-label">API Documentation</p>
+    <h2 class="sec-title">REST API — 8 modules, 30+ endpoints</h2>
+    <p class="sec-desc">OpenAPI 3.0 contract. Base URL: <code style="font-family:var(--mono);font-size:13px">https://api.lms.local/v1</code> · Auth: Bearer JWT</p>
+
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <!-- Auth -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px">Auth</div>
+        <div class="endpoint-list">
+          <div class="endpoint"><span class="ep-method" style="background:var(--teal-bg);color:var(--teal-fg)">POST</span><span class="ep-path">/auth/login</span><span class="ep-auth pill pill-teal">Public</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--teal-bg);color:var(--teal-fg)">POST</span><span class="ep-path">/auth/logout</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/auth/me</span><span class="ep-auth pill pill-purple">Auth</span></div>
+        </div>
+      </div>
+      <!-- Books -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px">Books</div>
+        <div class="endpoint-list">
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/books</span><span class="ep-auth pill pill-teal">Public</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--teal-bg);color:var(--teal-fg)">POST</span><span class="ep-path">/books</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/books/{id}</span><span class="ep-auth pill pill-teal">Public</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--amber-bg);color:var(--amber-fg)">PUT</span><span class="ep-path">/books/{id}</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--red-bg);color:var(--red-fg)">DELETE</span><span class="ep-path">/books/{id}</span><span class="ep-auth pill pill-purple">Auth</span></div>
+        </div>
+      </div>
+      <!-- Members -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px">Members</div>
+        <div class="endpoint-list">
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/members</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--teal-bg);color:var(--teal-fg)">POST</span><span class="ep-path">/members</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/members/{id}</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--amber-bg);color:var(--amber-fg)">PUT</span><span class="ep-path">/members/{id}</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/members/{id}/history</span><span class="ep-auth pill pill-purple">Auth</span></div>
+        </div>
+      </div>
+      <!-- Borrows + Returns -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px">Borrows & Returns</div>
+        <div class="endpoint-list">
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/borrows</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--teal-bg);color:var(--teal-fg)">POST</span><span class="ep-path">/borrows</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/borrows/overdue</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--teal-bg);color:var(--teal-fg)">POST</span><span class="ep-path">/returns</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/fines</span><span class="ep-auth pill pill-purple">Auth</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--purple-bg);color:var(--purple-fg)">PATCH</span><span class="ep-path">/fines/{id}/pay</span><span class="ep-auth pill pill-purple">Auth</span></div>
+        </div>
+      </div>
+      <!-- Admin + Reports -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px">Admin & Reports</div>
+        <div class="endpoint-list">
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/admin/users</span><span class="ep-auth pill pill-purple">Admin</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--teal-bg);color:var(--teal-fg)">POST</span><span class="ep-path">/admin/users</span><span class="ep-auth pill pill-purple">Admin</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--amber-bg);color:var(--amber-fg)">PUT</span><span class="ep-path">/admin/fine-rules</span><span class="ep-auth pill pill-purple">Admin</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/reports/dashboard</span><span class="ep-auth pill pill-purple">Admin</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/reports/most-borrowed</span><span class="ep-auth pill pill-purple">Admin</span></div>
+          <div class="endpoint"><span class="ep-method" style="background:var(--blue-bg);color:var(--blue-fg)">GET</span><span class="ep-path">/reports/member-activity</span><span class="ep-auth pill pill-purple">Admin</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fine engine formula -->
+    <div class="card mt-24" style="border-left:3px solid var(--teal-fg);margin-top:24px">
+      <div style="font-size:12px;font-weight:600;color:var(--teal-fg);margin-bottom:6px">Fine calculation engine</div>
+      <code style="font-family:var(--mono);font-size:13px">fine = days_overdue × amount_per_day</code>
+      <p style="font-size:12px;color:var(--muted);margin-top:6px">If actual_return_date ≤ expected_return_date → fine = 0, no record created. Calculated atomically on POST /returns.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPRINT PLAN -->
+<section id="sprint">
+  <div class="container">
+    <p class="sec-label">Sprint Plan</p>
+    <h2 class="sec-title">Task breakdown by phase & engineer</h2>
+    <p class="sec-desc">Every task, owner, and time estimate across all four phases. Recommended tool: <strong>Linear</strong>.</p>
+
+    <div class="sprint-phases">
+
+      <!-- Phase 0 -->
+      <div class="sp-block">
+        <div class="sp-header" style="background:var(--purple-bg)" onclick="toggle(this)">
+          <span class="sp-phase-name" style="color:var(--purple-fg)">Phase 0 — Kickoff</span>
+          <span class="sp-time" style="color:var(--purple-fg)">H+0 → H+3 · 3 hours</span>
+          <span style="color:var(--purple-fg);font-size:12px">▼</span>
+        </div>
+        <div class="sp-body">
+          <div class="sp-tasks">
+            <div class="sp-task"><span class="sp-task-id">P0-01</span><div><div class="sp-task-name">Team reads spec + sprint plan</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">All 6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P0-02</span><div><div class="sp-task-name">Agree on tech stack</div></div><span class="sp-task-est">45m</span><span class="sp-task-owner"><span class="pill pill-purple" style="font-size:10px">Eng 1+6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P0-03</span><div><div class="sp-task-name">Set up GitHub repo + branch strategy</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P0-04</span><div><div class="sp-task-name">Set up Notion / Figma / Eraser workspaces</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P0-05</span><div><div class="sp-task-name">Draft Vision Document outline</div></div><span class="sp-task-est">45m</span><span class="sp-task-owner"><span class="pill pill-purple" style="font-size:10px">Eng 1</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 1 -->
+      <div class="sp-block">
+        <div class="sp-header" style="background:var(--blue-bg)" onclick="toggle(this)">
+          <span class="sp-phase-name" style="color:var(--blue-fg)">Phase 1 — Blueprint (Design-First)</span>
+          <span class="sp-time" style="color:var(--blue-fg)">H+3 → H+8 · 5 hours</span>
+          <span style="color:var(--blue-fg);font-size:12px">▼</span>
+        </div>
+        <div class="sp-body">
+          <div class="sp-tasks">
+            <div class="sp-task"><span class="sp-task-id">P1-01</span><div><div class="sp-task-name">Vision Document (final)</div></div><span class="sp-task-est">60m</span><span class="sp-task-owner"><span class="pill pill-purple" style="font-size:10px">Eng 1</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-02</span><div><div class="sp-task-name">Requirements Specification</div></div><span class="sp-task-est">90m</span><span class="sp-task-owner"><span class="pill pill-blue" style="font-size:10px">Eng 2</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-03</span><div><div class="sp-task-name">User Stories + Acceptance Criteria</div></div><span class="sp-task-est">60m</span><span class="sp-task-owner"><span class="pill pill-blue" style="font-size:10px">Eng 2</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-04</span><div><div class="sp-task-name">Use Case Diagram</div></div><span class="sp-task-est">60m</span><span class="sp-task-owner"><span class="pill pill-teal" style="font-size:10px">Eng 3</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-05</span><div><div class="sp-task-name">System Context Diagram</div></div><span class="sp-task-est">45m</span><span class="sp-task-owner"><span class="pill pill-teal" style="font-size:10px">Eng 3</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-06</span><div><div class="sp-task-name">ERD + Data Dictionary</div></div><span class="sp-task-est">90m</span><span class="sp-task-owner"><span class="pill pill-amber" style="font-size:10px">Eng 4</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-07</span><div><div class="sp-task-name">API Contract (OpenAPI 3.0)</div></div><span class="sp-task-est">60m</span><span class="sp-task-owner"><span class="pill pill-amber" style="font-size:10px">Eng 4</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-08</span><div><div class="sp-task-name">Wireframes — 8 key screens</div></div><span class="sp-task-est">90m</span><span class="sp-task-owner"><span class="pill pill-red" style="font-size:10px">Eng 5</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-09</span><div><div class="sp-task-name">RTL layout notes (Arabic)</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-red" style="font-size:10px">Eng 5</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-10</span><div><div class="sp-task-name">Tech Stack doc + Architecture diagram</div></div><span class="sp-task-est">90m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">P1-11</span><div><div class="sp-task-name">Dev environment setup (one-command)</div></div><span class="sp-task-est">60m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gate -->
+      <div class="sp-block" style="border-color:var(--amber-fg)">
+        <div class="sp-header" style="background:var(--amber-bg)" onclick="toggle(this)">
+          <span class="sp-phase-name" style="color:var(--amber-fg)">⛔ Design Gate — H+8</span>
+          <span class="sp-time" style="color:var(--amber-fg)">1 hour · All 6 engineers</span>
+          <span style="color:var(--amber-fg);font-size:12px">▼</span>
+        </div>
+        <div class="sp-body">
+          <p style="font-size:13px;color:var(--amber-fg);margin:12px 0 12px;font-weight:500">No implementation begins until every item below is checked.</p>
+          <div class="gate-list">
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-01</span><span>Vision Document reviewed and approved by all 6 engineers</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-02</span><span>Requirements Spec covers all 3 roles with no open ambiguities</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-03</span><span>User stories have acceptance criteria and are prioritised</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-04</span><span>Use Case Diagram reviewed — all actors and relationships confirmed</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-05</span><span>ERD reviewed — no missing FKs, no naming conflicts</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-06</span><span>API Contract reviewed — paths, methods, schemas agreed</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-07</span><span>Wireframes reviewed — all 8 screens accounted for</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-08</span><span>Tech stack agreed — no further debate after this point</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-09</span><span>Dev environment confirmed working on all 6 machines</span></div>
+            <div class="gate-item"><span class="check">☐</span><span class="gate-id">G-10</span><span>Phase 2 assignments confirmed — each engineer knows their vertical slice</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="sp-block">
+        <div class="sp-header" style="background:var(--teal-bg)" onclick="toggle(this)">
+          <span class="sp-phase-name" style="color:var(--teal-fg)">Phase 2 — Build</span>
+          <span class="sp-time" style="color:var(--teal-fg)">H+9 → H+22 · 13 hours · 3 windows</span>
+          <span style="color:var(--teal-fg);font-size:12px">▼</span>
+        </div>
+        <div class="sp-body">
+          <p style="font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.06em">H+9 → H+13 · Foundation (4h)</p>
+          <div class="sp-tasks">
+            <div class="sp-task"><span class="sp-task-id">B-01</span><div><div class="sp-task-name">Auth system + JWT + RBAC middleware</div><div class="sp-task-sub">Blocks: B-07, B-08, B-11, B-16, B-18</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-purple" style="font-size:10px">Eng 1</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-02</span><div><div class="sp-task-name">Books module DB + CRUD API</div><div class="sp-task-sub">Blocks: B-08, B-09</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-blue" style="font-size:10px">Eng 2</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-03</span><div><div class="sp-task-name">Borrow / return / fines DB schema</div><div class="sp-task-sub">Blocks: B-09</div></div><span class="sp-task-est">2h</span><span class="sp-task-owner"><span class="pill pill-teal" style="font-size:10px">Eng 3</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-04</span><div><div class="sp-task-name">Members module DB + CRUD API</div><div class="sp-task-sub">Blocks: B-10, B-16</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-amber" style="font-size:10px">Eng 4</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-05</span><div><div class="sp-task-name">UI shell + routing + i18n + RTL toggle</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-red" style="font-size:10px">Eng 5</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-06</span><div><div class="sp-task-name">Dev env QA + CI lint setup</div></div><span class="sp-task-est">2h</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+          </div>
+          <p style="font-size:12px;font-weight:600;color:var(--muted);margin:16px 0 6px;text-transform:uppercase;letter-spacing:0.06em">⟳ Sync checkpoint H+13 (15 min, all)</p>
+          <p style="font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.06em">H+13 → H+18 · Core features (5h)</p>
+          <div class="sp-tasks">
+            <div class="sp-task"><span class="sp-task-id">B-07</span><div><div class="sp-task-name">Auth UI — login, errors, redirect, session</div></div><span class="sp-task-est">3h</span><span class="sp-task-owner"><span class="pill pill-purple" style="font-size:10px">Eng 1</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-08</span><div><div class="sp-task-name">Books UI — catalog, search, filter, detail</div></div><span class="sp-task-est">5h</span><span class="sp-task-owner"><span class="pill pill-blue" style="font-size:10px">Eng 2</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-09</span><div><div class="sp-task-name">Borrow API + return API + fine engine</div></div><span class="sp-task-est">5h</span><span class="sp-task-owner"><span class="pill pill-teal" style="font-size:10px">Eng 3</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-10</span><div><div class="sp-task-name">Members UI — register, profile, history</div></div><span class="sp-task-est">5h</span><span class="sp-task-owner"><span class="pill pill-amber" style="font-size:10px">Eng 4</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-11</span><div><div class="sp-task-name">Librarian dashboard — borrows + overdue</div></div><span class="sp-task-est">5h</span><span class="sp-task-owner"><span class="pill pill-red" style="font-size:10px">Eng 5</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-12</span><div><div class="sp-task-name">Categories CRUD + fine rules admin API</div></div><span class="sp-task-est">3h</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+          </div>
+          <p style="font-size:12px;font-weight:600;color:var(--muted);margin:16px 0 6px;text-transform:uppercase;letter-spacing:0.06em">⟳ Sync checkpoint H+18 (15 min, all)</p>
+          <p style="font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.06em">H+18 → H+22 · Integration (4h)</p>
+          <div class="sp-tasks">
+            <div class="sp-task"><span class="sp-task-id">B-13</span><div><div class="sp-task-name">Fine payment flow UI</div></div><span class="sp-task-est">2h</span><span class="sp-task-owner"><span class="pill pill-purple" style="font-size:10px">Eng 1</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-14</span><div><div class="sp-task-name">Book add/edit forms + delete guard</div></div><span class="sp-task-est">2h</span><span class="sp-task-owner"><span class="pill pill-blue" style="font-size:10px">Eng 2</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-15</span><div><div class="sp-task-name">Borrow + return UI + fine preview modal</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-teal" style="font-size:10px">Eng 3</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-16</span><div><div class="sp-task-name">Admin dashboard + reports screens</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-amber" style="font-size:10px">Eng 4</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-17</span><div><div class="sp-task-name">Responsive + RTL QA pass</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-red" style="font-size:10px">Eng 5</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">B-18</span><div><div class="sp-task-name">Admin user mgmt UI + E2E flow test</div></div><span class="sp-task-est">4h</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="sp-block">
+        <div class="sp-header" style="background:var(--red-bg)" onclick="toggle(this)">
+          <span class="sp-phase-name" style="color:var(--red-fg)">Phase 3 — Polish & Demo</span>
+          <span class="sp-time" style="color:var(--red-fg)">H+22 → H+24 · Feature freeze</span>
+          <span style="color:var(--red-fg);font-size:12px">▼</span>
+        </div>
+        <div class="sp-body">
+          <div class="sp-tasks">
+            <div class="sp-task"><span class="sp-task-id">D-01</span><div><div class="sp-task-name">⛔ Feature freeze — no new commits</div></div><span class="sp-task-est">—</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">All 6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">D-02</span><div><div class="sp-task-name">Seed demo data (10+ books, 5 members)</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-amber" style="font-size:10px">Eng 4</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">D-03</span><div><div class="sp-task-name">Smoke test all core flows</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">D-04</span><div><div class="sp-task-name">Record 90-second backup demo video</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-red" style="font-size:10px">Eng 5</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">D-05</span><div><div class="sp-task-name">Finalize presentation slides (6–8 slides)</div></div><span class="sp-task-est">45m</span><span class="sp-task-owner"><span class="pill pill-purple" style="font-size:10px">Eng 1</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">D-06</span><div><div class="sp-task-name">Live walkthrough rehearsal ×2</div></div><span class="sp-task-est">30m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">All 6</span></span></div>
+            <div class="sp-task"><span class="sp-task-id">D-07</span><div><div class="sp-task-name">Final deployment + submission</div></div><span class="sp-task-est">15m</span><span class="sp-task-owner"><span class="pill pill-gray" style="font-size:10px">Eng 6</span></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS USED -->
+<section id="tools" style="background:var(--surface)">
+  <div class="container">
+    <p class="sec-label">AI Tools Trial</p>
+    <h2 class="sec-title">Tool evaluated per deliverable</h2>
+    <p class="sec-desc">Each artifact was tested across multiple tools. Chosen tool reflects best output quality, accuracy, and team accessibility.</p>
+
+    <table class="tools-table">
+      <thead>
+        <tr>
+          <th>Artifact</th>
+          <th>Chosen Tool</th>
+          <th>Reason</th>
+          <th>Also Tried</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tool-artifact">Vision Documentation</td>
+          <td class="tool-chosen">Liner</td>
+          <td>Specialized in search, summaries, and organizing information — produced the best output</td>
+          <td class="tool-also">Claude, Gemini</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">Requirements Specification</td>
+          <td class="tool-chosen">Genspark</td>
+          <td>Specialized in software development; produced better output than all alternatives</td>
+          <td class="tool-also">Claude, Gemini (better than ClickUp & Copilot)</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">User Stories</td>
+          <td class="tool-chosen">Claude</td>
+          <td>Best fit for structured user story writing</td>
+          <td class="tool-also">—</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">Use Case Diagram</td>
+          <td class="tool-chosen">Eraser.io</td>
+          <td>Best diagram output; prompt written with Gemini</td>
+          <td class="tool-also">Mermaid (worst)</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">ERD</td>
+          <td class="tool-chosen">Gemini + Eraser.io</td>
+          <td>Gemini for description, Eraser.io for visualization — more accurate than alternatives</td>
+          <td class="tool-also">ChartDB (paid, less accurate), Mermaid (less accurate)</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">API Documentation</td>
+          <td class="tool-chosen">Antigravity + Claude</td>
+          <td>Used Antigravity platform with Claude model to generate documentation</td>
+          <td class="tool-also">—</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">Wireframes</td>
+          <td class="tool-chosen">Figma AI</td>
+          <td>Both Figma AI and v0 by Vercel produced accurate wireframes; v0 has low usage limits so Figma was used finally</td>
+          <td class="tool-also">v0 by Vercel (good but limited)</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">Sprint Plan</td>
+          <td class="tool-chosen">Notion</td>
+          <td>Offers the most flexibility; team can all access and edit plans collaboratively</td>
+          <td class="tool-also">Notion, Liner, Claude, Gemini (all tried)</td>
+        </tr>
+        <tr>
+          <td class="tool-artifact">Final Working MVP</td>
+          <td class="tool-chosen">Replit</td>
+          <td>Higher usage limits than Antigravity models — no need to switch between models mid-project</td>
+          <td class="tool-also">Antigravity (multiple models tried)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card mt-24" style="margin-top:20px">
+      <div style="font-size:12px;font-weight:600;color:var(--muted);margin-bottom:10px">Key notes from evaluation</div>
+      <ul style="font-size:13px;color:var(--muted);line-height:1.8;padding-left:18px">
+        <li>Tools evaluated on: output quality, accuracy, feature availability, and team accessibility</li>
+        <li>Genspark outperformed Claude and Gemini for Requirements Specification due to software dev specialization</li>
+        <li>For ERD, a hybrid approach (Gemini + Eraser.io) gave the most accurate result — ChartDB requires payment</li>
+        <li>Figma AI preferred over v0 by Vercel for Wireframes due to v0's low usage limits</li>
+        <li>Notion chosen for Sprint Planning because it allows full team collaboration and editing flexibility</li>
+        <li>Replit preferred over Antigravity for the MVP because its higher limits eliminated model-switching mid-project</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section id="deliverables">
+  <div class="container">
+    <p class="sec-label">Project Output</p>
+    <h2 class="sec-title">All deliverables produced</h2>
+    <p class="sec-desc">Every document, diagram, and artifact completed during the 24-hour sprint.</p>
+
+    <div class="docs-grid">
+      <div class="doc-card">
+        <div class="doc-icon">📄</div>
+        <div class="doc-name">Vision Document</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">PDF · Liner</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">📋</div>
+        <div class="doc-name">Requirements Specification</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">PDF · Interactive widget · Genspark + Claude</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">📝</div>
+        <div class="doc-name">User Stories</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">Sheet · Claude</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">🔷</div>
+        <div class="doc-name">Use Case Diagram</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">PNG · Eraser.io + Gemini</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">🗄️</div>
+        <div class="doc-name">ERD + Data Dictionary</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">PNG · Gemini + Eraser.io · 8 tables</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">🔌</div>
+        <div class="doc-name">API Documentation</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">PDF · Antigravity + Claude · 30+ endpoints</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">🎨</div>
+        <div class="doc-name">Wireframes</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">Figma · 8 key screens + RTL notes</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">📊</div>
+        <div class="doc-name">Sprint Plan</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">Notion · PDF · Linear prompt</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">🏗️</div>
+        <div class="doc-name">Architecture Diagram</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">PNG · Eraser.io</div>
+      </div>
+      <div class="doc-card" style="border-color:var(--teal-fg)">
+        <div class="doc-icon">🚀</div>
+        <div class="doc-name">Final Working MVP</div>
+        <div class="doc-status"><span class="pill pill-teal">Live</span></div>
+        <div class="doc-format" style="margin-top:6px;display:flex;flex-direction:column;gap:5px">
+          <a href="https://replit.com/join/uascmzdzvpzamuf-mariemmorgan" target="_blank"
+             style="font-size:11px;color:var(--teal-fg);font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px">
+            ▶ Open on Replit
+          </a>
+          <a href="https://github.com/KarimHesham23/iti-hackthon" target="_blank"
+             style="font-size:11px;color:var(--accent);font-weight:600;text-decoration:none;display:flex;align-items:center;gap:4px">
+            ⬡ GitHub source
+          </a>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon">🌐</div>
+        <div class="doc-name">This Presentation</div>
+        <div class="doc-status"><span class="pill pill-teal">Complete</span></div>
+        <div class="doc-format">HTML · Claude</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--ink);color:rgba(255,255,255,0.4);padding:40px 32px;text-align:center;font-size:12px">
+  <div style="font-weight:700;color:rgba(255,255,255,0.8);font-size:16px;margin-bottom:6px;letter-spacing:-0.02em">SiaMind · Library Management System</div>
+  <div style="margin-bottom:24px">24-Hour Hackathon · June 2026 · 6 Engineers · Design-First</div>
+  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+    <a href="https://replit.com/join/uascmzdzvpzamuf-mariemmorgan" target="_blank"
+       style="display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:8px;
+              background:#a89cf7;color:#1a1340;font-size:13px;font-weight:600;text-decoration:none;transition:opacity 0.15s">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 4.5A2 2 0 0 1 7.5 2h9A2 2 0 0 1 18.5 4v16l-6.5-3.5L5.5 20V4.5z"/></svg>
+      Live MVP on Replit
+    </a>
+    <a href="https://github.com/KarimHesham23/iti-hackthon" target="_blank"
+       style="display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:8px;
+              background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);font-size:13px;font-weight:600;
+              text-decoration:none;border:1px solid rgba(255,255,255,0.2);transition:opacity 0.15s">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/></svg>
+      GitHub — KarimHesham23/iti-hackthon
+    </a>
+  </div>
+</footer>
+
+<script>
+// Nav active on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Accordion toggle
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('span:last-child');
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  arrow.textContent = open ? '▶' : '▼';
+}
+</script>
+</body>
+</html>
